@@ -20,8 +20,8 @@ setup(
     tests_require=['pytest'],
     entry_points={
         'console_scripts': [
-            'talker = mindrove_gesture_recognition.publisher_member_function:main',
-            'listener = mindrove_gesture_recognition.subscriber_member_function:main',
+            'dataset_publisher = mindrove_gesture_recognition.csv_dataset_publisher:main',
+            'gesture_classfier = mindrove_gesture_recognition.gesture_classifier:main',
         ],
     },
 )

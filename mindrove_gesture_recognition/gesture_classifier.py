@@ -9,7 +9,7 @@ import numpy as np
 import sklearn
 import joblib
 
-class MinimalSubscriber(Node):
+class GestureClassifier(Node):
 
     def __init__(self):
         super().__init__('minimal_subscriber')
@@ -85,7 +85,7 @@ class MinimalSubscriber(Node):
 def main(args=None):
     rclpy.init(args=args)
 
-    minimal_subscriber = MinimalSubscriber()
+    minimal_subscriber = GestureClassifier()
 
     rclpy.spin(minimal_subscriber)
 

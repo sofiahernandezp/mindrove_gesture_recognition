@@ -5,7 +5,7 @@ from std_msgs.msg import Float64MultiArray
 import pandas as pd
 import numpy as np
 
-class MinimalPublisher(Node):
+class CsvDatasetPublisher(Node):
 
     def __init__(self):
         super().__init__('minimal_publisher')
@@ -32,7 +32,7 @@ class MinimalPublisher(Node):
 def main(args=None):
     rclpy.init(args=args)
 
-    minimal_publisher = MinimalPublisher()
+    minimal_publisher = CsvDatasetPublisher()
 
     rclpy.spin(minimal_publisher)
 
