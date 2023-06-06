@@ -53,7 +53,10 @@ class GestureClassifier(Node):
         maxval= np.maximum(maxval, minval)
         minval= np.minimum(maxval, minval)
 
-
+        #this used whenusing datasets for subject 3
+        maxval = np.array([9250.875, 18904.68, 25489.98, 22344.435, 22515.21, 29752.92, 2401.56, 16939.53])
+        minval = np.array([6354.675, 14136.93, 23362.29, 19848.465, 20443.905, 26452.215, 73.98, 14075.145])
+        
         # ARRAY ADAPTATION (RECTIFICATION)
         np_data = np.array(msg.data)
         emgval = np.abs(np_data) * 0.045
