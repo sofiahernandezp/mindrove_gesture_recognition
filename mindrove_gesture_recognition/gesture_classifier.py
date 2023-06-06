@@ -1,13 +1,16 @@
-import rclpy
-from rclpy.node import Node
-from collections import deque
+import socket
 import statistics
+from collections import deque
 from statistics import mean
-from roboasset_msgs.msg import MindroveEmg
-import pandas as pd
-import numpy as np
-import sklearn
+
 import joblib
+import numpy as np
+import pandas as pd
+import rclpy
+import sklearn
+from rclpy.node import Node
+from roboasset_msgs.msg import MindroveEmg
+
 
 class GestureClassifier(Node):
 
@@ -32,6 +35,13 @@ class GestureClassifier(Node):
         #self.maxval = np.array([9250.875, 18904.68, 25489.98, 22344.435, 22515.21, 29752.92, 2401.56, 16939.53])
         #self.minval = np.array([6354.675, 14136.93, 23362.29, 19848.465, 20443.905, 26452.215, 73.98, 14075.145])
 
+        host = "172.1.31.161"
+        port = 55001                   # The same port as used by the server
+        self.unity_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+        self.get_logger().info(f"Connecting to Unity at {host}:{port}")
+        self.unity_socket.connect((host, port))
+        self.get_logger().info("Connected to Unity")
+
     def listener_callback(self, msg):
         
         #max and min values
@@ -40,6 +50,8 @@ class GestureClassifier(Node):
         minv = np.array(msg.min)
         minval = np.abs(minv) * 0.045
        
+        maxval= np.maximum(maxval, minval)
+        minval= np.minimum(maxval, minval)
 
 
         # ARRAY ADAPTATION (RECTIFICATION)
@@ -88,6 +100,10 @@ class GestureClassifier(Node):
         
         #TAKE OUT GESTURE
         self.get_logger().info(f'Predicted category is: {numgest}')
+
+        if numgest != 0:
+            self.unity_socket.sendall(numgest)
+
         # self.get_logger().info(f'The gesture recognized is:{self.gesture[int(numgest)]}')
         #self.get_logger().info(f"array recieved is: {msg.data}")
 
