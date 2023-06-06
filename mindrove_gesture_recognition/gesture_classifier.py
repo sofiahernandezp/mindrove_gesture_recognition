@@ -35,13 +35,14 @@ class GestureClassifier(Node):
     def listener_callback(self, msg):
         
         #max and min values
-        maxval = np.array(msg.max) * 0.045
-        minval = np.array(msg.min) * 0.045
-
+        maxv = np.array(msg.max)
+        maxval = np.abs(maxv) * 0.045
+        minv = np.array(msg.min)
+        minval = np.abs(minv) * 0.045
        
 
 
-        # ARRAY ADAPTATION
+        # ARRAY ADAPTATION (RECTIFICATION)
         np_data = np.array(msg.data)
         emgval = np.abs(np_data) * 0.045
         
