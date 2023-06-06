@@ -35,7 +35,7 @@ class GestureClassifier(Node):
         #self.maxval = np.array([9250.875, 18904.68, 25489.98, 22344.435, 22515.21, 29752.92, 2401.56, 16939.53])
         #self.minval = np.array([6354.675, 14136.93, 23362.29, 19848.465, 20443.905, 26452.215, 73.98, 14075.145])
 
-        host = "172.1.31.161"
+        host = "172.31.1.161"
         port = 55001                   # The same port as used by the server
         self.unity_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         self.get_logger().info(f"Connecting to Unity at {host}:{port}")
